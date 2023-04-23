@@ -140,6 +140,7 @@ const defaultConfig = (): PostHogConfig => ({
     request_batching: true,
     properties_string_max_length: 65535,
     session_recording: {
+        recorderVersion: 'v2',
         // select set of rrweb config options we expose to our users
         // see https://github.com/rrweb-io/rrweb/blob/master/guide.md
         blockClass: 'ph-no-capture',

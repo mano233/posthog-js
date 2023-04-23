@@ -178,7 +178,16 @@ export class SessionRecording {
 
     _onScriptLoaded() {
         // rrweb config info: https://github.com/rrweb-io/rrweb/blob/7d5d0033258d6c29599fb08412202d9a2c7b9413/src/record/index.ts#L28
-        const sessionRecordingOptions: recordOptions<eventWithTime> = {
+        const sessionRecordingOptions: recordOptions<eventWithTime> & {
+            sampling?: {
+                canvas: 'all' | number
+            }
+            recordCanvas?: boolean
+            dataURLOptions?: {
+                type: string
+                quality: number
+            }
+        } = {
             // select set of rrweb config options we expose to our users
             // see https://github.com/rrweb-io/rrweb/blob/master/guide.md
             blockClass: 'ph-no-capture',
@@ -190,6 +199,14 @@ export class SessionRecording {
             slimDOMOptions: {},
             collectFonts: false,
             inlineStylesheet: true,
+            sampling: {
+                canvas: 15,
+            },
+            recordCanvas: false,
+            dataURLOptions: {
+                type: 'image/webp',
+                quality: 0.1,
+            },
         }
         // We switched from loading all of rrweb to just the record part, but
         // keep backwards compatibility if someone hasn't upgraded PostHog
